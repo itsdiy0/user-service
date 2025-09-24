@@ -2,6 +2,7 @@ from fastapi import FastAPI, HTTPException, status
 from motor.motor_asyncio import AsyncIOMotorClient
 from core.config import settings
 
+
 app = FastAPI(title="My FastAPI App", version="1.0.0")
 
 @app.get("/")
@@ -28,3 +29,4 @@ async def database_health_check():
                 "error": str(e)
             }
         )
+
