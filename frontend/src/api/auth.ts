@@ -1,12 +1,24 @@
-import axios from "axios";
-import type { registerType,loginType,loginResponseType,registerResponseType } from "../types/auth";
+import axios, { AxiosError } from "axios";
+import type { RegisterRequest,RegisterSuccessResponse,LoginRequest,LoginResponse,ErrorResponse } from "../types/auth";
 
 const API_URL = "http://localhost:8000/api/auth"; 
 
-export const registerUser = async (data:registerType) => {
-  return axios.post<registerResponseType>(`${API_URL}/register`, data);
+export const registerUser = async (data: RegisterRequest) => {
+  try {
+    const res = await axios.post<RegisterSuccessResponse>(`${API_URL}/register`, data);
+    return res.data;
+  } catch (err) {
+    const error = err as AxiosError<ErrorResponse>;
+    throw error.response?.data || { detail: "Unknown error" };
+  }
 };
 
-export const loginUser = async (data:loginType) => {
-  return axios.post<loginResponseType>(`${API_URL}/login`, data);
+export const loginUser = async (data: LoginRequest) => {
+  try {
+    const res = await axios.post<LoginResponse>(`${API_URL}/login`, data);
+    return res.data;
+  } catch (err) {
+    const error = err as AxiosError<ErrorResponse>;
+    throw error.response?.data || { detail: "Unknown error" };
+  }
 };

@@ -1,23 +1,29 @@
-export type registerType = {
+export interface RegisterRequest {
     email: string;
     username: string;
     full_name?: string;
     password: string;
 }
 
-export type loginType = {
+export interface LoginRequest {
     email: string;
     password: string;
 }
 
-export type loginResponseType = {
+export interface LoginResponse {
     access_token: string;
     type: string;
 }
 
-export type registerResponseType = {
-    id: number;
+export interface RegisterSuccessResponse {
     email: string;
     username: string;
-    full_name: string;
+    full_name: string | null;
+    id: string;
+    is_active: boolean;
+    created_at: string;
+}
+
+export interface ErrorResponse {
+    detail: string;
 }

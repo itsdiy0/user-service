@@ -1,38 +1,41 @@
 import { useState } from "react";
 import { registerUser } from "../api/auth";
-import type { registerFormType } from "../types/auth";
+import type { RegisterRequest,ErrorResponse } from "../types/auth";
 import { useNavigate,Link } from "react-router-dom";
 
 const RegisterForm = () => {
-  const [form, setForm] = useState<registerFormType>({
+  const [form, setForm] = useState<RegisterRequest>({
     email: "",
     username: "",
     full_name: "",
     password: "",
-    confirmPassword: "",
   });
+  const [confirmPassword, setConfirmPassword] = useState("");
   const navigate = useNavigate();
   const [error, setError] = useState<string | null>(null);
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) =>
     setForm({ ...form, [e.target.name]: e.target.value });
 
+  const handleConfirmChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setConfirmPassword(e.target.value);
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
-    if (form.password !== form.confirmPassword) {
+    if (form.password !== confirmPassword) {
       setError("Passwords do not match");
       return;
     }
     
     try {
-      // Remove confirmPassword from the data sent to API
-      const { confirmPassword, ...registerData } = form;
-      await registerUser(registerData);
+      await registerUser(form);
       navigate("/login",{
         state: { message: "Registration successful! Please log in." }
       });
     } catch (err) {
-      setError("Registration failed. Try again.");
+      const apiError = err as ErrorResponse;
+      setError(apiError.detail || "Registration failed. Try again.");
     }
   };
 
@@ -73,8 +76,8 @@ const RegisterForm = () => {
         name="confirmPassword"
         type="password"
         placeholder="Confirm Password *"
-        onChange={handleChange}
-        value={form.confirmPassword}
+        onChange={handleConfirmChange}
+        value={confirmPassword}
         required
       />
       <button type="submit">Register</button>

@@ -1,13 +1,13 @@
 import { useState, useContext } from "react";
 import { loginUser } from "../api/auth";
 import { AuthContext } from "../context/AuthContext";
-import type { loginType } from "../types/auth";
+import type { LoginRequest,ErrorResponse } from "../types/auth";
 import { useNavigate,useLocation,Link } from "react-router-dom";
 
 const LoginForm = () => {
   const { login } = useContext(AuthContext);
   const navigate = useNavigate();
-  const [form, setForm] = useState<loginType>({
+  const [form, setForm] = useState<LoginRequest>({
     email: "",
     password: "",
   });
@@ -15,7 +15,9 @@ const LoginForm = () => {
   const [message, setMessage] = useState<string | null>(
     location.state?.message || null
   );
-
+  const [messageType, setMessageType] = useState<"success" | "error">(
+    location.state?.type || "error"
+  );
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) =>
     setForm({ ...form, [e.target.name]: e.target.value });
 
@@ -23,16 +25,18 @@ const LoginForm = () => {
     e.preventDefault();
     try {
       const res = await loginUser(form);
-      login(res.data.access_token);
+      login(res.access_token);
       navigate("/");
     } catch (err) {
-      setMessage("Invalid username or password.");
+      const apiError = err as ErrorResponse;
+      setMessage(apiError.detail || "Invalid email or password.");
+      setMessageType("error");
     }
   };
 
   return (
     <>
-    {message && <p className="success">{message}</p>}
+    {message && <p className={messageType}>{message}</p>}
     <form onSubmit={handleSubmit}>
       <input
         name="email"
