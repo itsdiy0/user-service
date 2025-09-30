@@ -15,7 +15,7 @@ export interface LoginResponse {
     type: string;
 }
 
-export interface RegisterSuccessResponse {
+export interface User {
     email: string;
     username: string;
     full_name: string | null;
@@ -23,6 +23,8 @@ export interface RegisterSuccessResponse {
     is_active: boolean;
     created_at: string;
 }
+
+export interface RegisterSuccessResponse extends User {}
 
 export interface ErrorResponse {
     detail: string;
