@@ -1,12 +1,12 @@
 import axios from "axios";
-import type { registerType,loginType } from "../types/auth";
+import type { registerType,loginType,loginResponseType,registerResponseType } from "../types/auth";
 
 const API_URL = "http://localhost:8000/api/auth"; 
 
 export const registerUser = async (data:registerType) => {
-  return axios.post(`${API_URL}/register`, data);
+  return axios.post<registerResponseType>(`${API_URL}/register`, data);
 };
 
 export const loginUser = async (data:loginType) => {
-  return axios.post(`${API_URL}/login`, data);
+  return axios.post<loginResponseType>(`${API_URL}/login`, data);
 };
