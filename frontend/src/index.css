@@ -3,7 +3,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family:sans-serif;
   }
   
   body {
@@ -83,6 +83,7 @@
   p {
     text-align: center;
     font-size: 0.95rem;
+    font-weight: bold;
   }
   
   p.error {

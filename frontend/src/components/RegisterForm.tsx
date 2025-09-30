@@ -31,7 +31,7 @@ const RegisterForm = () => {
     try {
       await registerUser(form);
       navigate("/login",{
-        state: { message: "Registration successful! Please log in." }
+        state: { message: "Registration successful! Please log in." , type: "success" }
       });
     } catch (err) {
       const apiError = err as ErrorResponse;
