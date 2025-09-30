@@ -89,8 +89,3 @@ async def read_users_me(current_user = Depends(get_current_user)):
         is_active=current_user.is_active,
         created_at=current_user.created_at
     )
-
-@router.post("/logout")
-async def logout():
-    """Logout user (client should discard the token)"""
-    return {"message": "Successfully logged out"}
