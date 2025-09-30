@@ -2,7 +2,7 @@ import { useState, useContext } from "react";
 import { loginUser } from "../api/auth";
 import { AuthContext } from "../context/AuthContext";
 import type { loginType } from "../types/auth";
-import { useNavigate,useLocation } from "react-router-dom";
+import { useNavigate,useLocation,Link } from "react-router-dom";
 
 const LoginForm = () => {
   const { login } = useContext(AuthContext);
@@ -32,23 +32,24 @@ const LoginForm = () => {
 
   return (
     <>
-    {message && <p style={{ color: "red" }}>{message}</p>}
+    {message && <p className="success">{message}</p>}
     <form onSubmit={handleSubmit}>
       <input
         name="email"
-        placeholder="Email"
+        placeholder="Email *"
         onChange={handleChange}
         value={form.email}
       />
       <input
         name="password"
         type="password"
-        placeholder="Password"
+        placeholder="Password *"
         onChange={handleChange}
         value={form.password}
       />
       <button type="submit">Login</button>
     </form>
+    <p className="authText">don't have an account ? Register <Link to="/register">here</Link> </p>
     </>
   );
 };

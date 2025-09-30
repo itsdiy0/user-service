@@ -1,0 +1,111 @@
+/* ==== Global Reset ==== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+  
+  body {
+    background-color: #FFE5CF;
+    color: #33372C;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 2rem;
+  }
+  
+
+  a,a:visited {
+    color: #FF885B;
+  }
+  a:hover,a:focus{
+    color:#e46f46;
+  }
+
+  /* ==== Container ==== */
+  div {
+    width: 100%;
+    max-width: 600px;
+    margin: 1rem auto;
+    padding: 2rem;
+    background: white;
+    border-radius: 4px;
+    box-shadow: 0px 4px 12px rgba(0,0,0,0.1);
+  }
+  
+  /* ==== Headings ==== */
+  h1, h2 {
+    text-align: center;
+    margin-bottom: 1.5rem;
+    color: #FF885B;
+  }
+  
+  /* ==== Forms ==== */
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  input {
+    padding: 0.75rem 1rem;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 1rem;
+    outline: none;
+    transition: border 0.2s ease;
+  }
+  
+  input:focus {
+    border: 1px solid #FF885B;
+  }
+  
+  /* ==== Buttons ==== */
+  button {
+    padding: 0.75rem 1rem;
+    background-color: #FF885B;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: bold;
+    color: white;
+    cursor: pointer;
+    transition: background 0.2s ease;
+  }
+  
+  button:hover {
+    background-color: #e46f46;
+  }
+  
+  /* ==== Messages ==== */
+  p {
+    text-align: center;
+    font-size: 0.95rem;
+  }
+  
+  p.error {
+    color: #FF3333;
+    margin-bottom: 1rem;
+  }
+  
+  p.success {
+    color: #557C56;
+    margin-bottom: 1rem;
+  }
+  
+  p.authText{
+    margin-top: 1rem;
+  }
+  
+  /* ==== Logout button ==== */
+  button.logout {
+    background-color: #557C56;
+    width: 100%;
+  }
+  
+  button.logout:hover {
+    background-color: #446344;
+  }
+  

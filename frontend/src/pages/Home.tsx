@@ -5,11 +5,10 @@ const Home = () => {
   const { token, logout } = useContext(AuthContext);
 
   return (
-    <div>
-      <h1>Welcome to the Home Page 🎉</h1>
-      {token && <p>Your token: {token}</p>}
-      <button onClick={logout}>Logout</button>
-    </div>
+    <>
+      <h1>Welcome to the Home Page</h1>
+      <button className="logout" onClick={logout}>Logout</button>
+    </>
   );
 };
 

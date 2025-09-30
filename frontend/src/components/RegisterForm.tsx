@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { registerUser } from "../api/auth";
 import type { registerType } from "../types/auth";
-import { useNavigate } from "react-router-dom";
+import { useNavigate,Link } from "react-router-dom";
 
 const RegisterForm = () => {
   const [form, setForm] = useState<registerType>({
@@ -29,19 +29,19 @@ const RegisterForm = () => {
 
   return (
     <>
-    {error && <p style={{ color: "red" }}>{error}</p>}
+    {error && <p className="error">{error}</p>}
     
     <form onSubmit={handleSubmit}>
     <input
         name="email"
-        placeholder="Email"
+        placeholder="Email *"
         onChange={handleChange}
         value={form.email}
         required
       />
       <input
         name="username"
-        placeholder="Username"
+        placeholder="Username *"
         onChange={handleChange}
         value={form.username}
         required
@@ -55,13 +55,14 @@ const RegisterForm = () => {
       <input
         name="password"
         type="password"
-        placeholder="Password"
+        placeholder="Password *"
         onChange={handleChange}
         value={form.password}
         required
       />
       <button type="submit">Register</button>
     </form>
+    <p className="authText">Already have an account ? Login <Link to="/login">here</Link></p>
     </>
   );
 };
