@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { registerUser } from "../api/auth";
 import type { registerType } from "../types/auth";
+import { useNavigate } from "react-router-dom";
 
 const RegisterForm = () => {
   const [form, setForm] = useState<registerType>({
@@ -9,7 +10,8 @@ const RegisterForm = () => {
     full_name: "",
     password: "",
   });
-
+  const navigate = useNavigate();
+  const [error, setError] = useState<string | null>(null);
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) =>
     setForm({ ...form, [e.target.name]: e.target.value });
 
@@ -17,13 +19,18 @@ const RegisterForm = () => {
     e.preventDefault();
     try {
       await registerUser(form);
-      alert("Registration successful! Please log in.");
+      navigate("/login",{
+        state: { message: "Registration successful! Please log in." }
+      });
     } catch (err) {
-      alert("Registration failed");
+      setError("Registration failed. Try again.");
     }
   };
 
   return (
+    <>
+    {error && <p style={{ color: "red" }}>{error}</p>}
+    
     <form onSubmit={handleSubmit}>
     <input
         name="email"
@@ -40,8 +47,8 @@ const RegisterForm = () => {
         required
       />
     <input
-        name="full name"
-        placeholder="Username"
+        name="full_name"
+        placeholder="full name"
         onChange={handleChange}
         value={form.full_name}
       />
@@ -55,6 +62,7 @@ const RegisterForm = () => {
       />
       <button type="submit">Register</button>
     </form>
+    </>
   );
 };
 
