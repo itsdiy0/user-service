@@ -5,8 +5,6 @@ from api.routes import auth
 from core.database import connect_to_mongo, close_mongo_connection
 from contextlib import asynccontextmanager
 
-
-
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     # Startup

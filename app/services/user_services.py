@@ -8,7 +8,6 @@ from datetime import datetime
 from bson import ObjectId
 
 class UserService:
-    
     @property
     def collection(self):
         db = get_database()
