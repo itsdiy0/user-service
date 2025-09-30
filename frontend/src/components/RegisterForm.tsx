@@ -1,14 +1,15 @@
 import { useState } from "react";
 import { registerUser } from "../api/auth";
-import type { registerType } from "../types/auth";
+import type { registerFormType } from "../types/auth";
 import { useNavigate,Link } from "react-router-dom";
 
 const RegisterForm = () => {
-  const [form, setForm] = useState<registerType>({
+  const [form, setForm] = useState<registerFormType>({
     email: "",
     username: "",
     full_name: "",
     password: "",
+    confirmPassword: "",
   });
   const navigate = useNavigate();
   const [error, setError] = useState<string | null>(null);
@@ -17,8 +18,16 @@ const RegisterForm = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    
+    if (form.password !== form.confirmPassword) {
+      setError("Passwords do not match");
+      return;
+    }
+    
     try {
-      await registerUser(form);
+      // Remove confirmPassword from the data sent to API
+      const { confirmPassword, ...registerData } = form;
+      await registerUser(registerData);
       navigate("/login",{
         state: { message: "Registration successful! Please log in." }
       });
@@ -58,6 +67,14 @@ const RegisterForm = () => {
         placeholder="Password *"
         onChange={handleChange}
         value={form.password}
+        required
+      />
+      <input
+        name="confirmPassword"
+        type="password"
+        placeholder="Confirm Password *"
+        onChange={handleChange}
+        value={form.confirmPassword}
         required
       />
       <button type="submit">Register</button>
