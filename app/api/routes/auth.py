@@ -32,7 +32,14 @@ async def register(user_data: UserCreate):
 
 @router.post("/login", response_model=Token)
 async def login(user_credentials: UserLogin):
-    """Login user and return access token"""
+    
+    # Validate input
+    if not user_credentials.email or not user_credentials.password:
+        raise HTTPException(
+            status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
+            detail="Email and password are required"
+        )
+
     user = await user_service.authenticate_user(
         user_credentials.email, 
         user_credentials.password
